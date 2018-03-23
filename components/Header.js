@@ -15,10 +15,11 @@ const styles = {
     flexDirection: "row",
     marginLeft: 10,
     marginBottom: 10
-    },
+  },
   image: {
     width: 100,
-    height: 50
+    height: 50,
+    resizeMode: "contain"
   },
   header: {
     fontSize: 25,

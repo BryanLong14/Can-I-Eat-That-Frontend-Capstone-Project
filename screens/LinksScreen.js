@@ -21,8 +21,7 @@ export default class LinksScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 44,
+    paddingTop: 40,
     flex: 1,
-    backgroundColor: "#fff"
   }
 });
