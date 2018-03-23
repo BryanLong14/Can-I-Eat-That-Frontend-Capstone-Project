@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import Header from "../components/Header";
 
 import { MonoText } from '../components/StyledText';
 
@@ -18,18 +19,11 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    return (
-      <View style={styles.container}>
+    return <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
+            <Header headerText={"Can I Eat That?"} />
+            <Image source={__DEV__ ? require("../assets/images/robot-dev.png") : require("../assets/images/robot-prod.png")} style={styles.welcomeImage} />
           </View>
 
           <View style={styles.getStartedContainer}>
@@ -41,9 +35,7 @@ export default class HomeScreen extends React.Component {
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
             </View>
 
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
+            <Text style={styles.getStartedText}>Change this text and your app will automatically reload.</Text>
           </View>
 
           <View style={styles.helpContainer}>
@@ -60,8 +52,7 @@ export default class HomeScreen extends React.Component {
             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
           </View>
         </View>
-      </View>
-    );
+      </View>;
   }
 
   _maybeRenderDevelopmentModeWarning() {
