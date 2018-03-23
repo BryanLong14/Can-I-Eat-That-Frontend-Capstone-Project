@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import Header from "../components/Header";
+import FoodsToAvoid from "../components/FoodsToAvoid";
 
 import { MonoText } from '../components/StyledText';
 
@@ -23,6 +24,7 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={styles.container}>
           <View style={styles.contentContainer}>
             <Header headerText={"Can I Eat That?"} />
+            <FoodsToAvoid />
           
           </View>
         </ScrollView>
