@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
+import { TextField } from "react-native-material-textfield";
+import axios from "axios";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
 
@@ -9,8 +11,7 @@ class FoodsToAvoid extends Component {
     super(props);
     this.state = {
       foods: [],
-      textInput: "",
-      modalVisible: false
+      textInput: ""
     };
   }
 
@@ -19,28 +20,76 @@ class FoodsToAvoid extends Component {
   };
 
   initData = () => {
-  }
+    axios({ 
+      method: "get",
+      url: API })
+      .then(response => this.setState({ foods: response.data }))
+      .catch(err => console.error(err));
+  };
 
   deleteItem = id => {
-  }
+    axios
+      .delete(API + id, {
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify
+      })
+      .catch(err => console.error(err))
+      .then(this.initData());
+  };
 
   submitFoodToAPI = () => {
-  }
+    axios
+      .post(API, {
+        name: this.state.textInput
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(err => console.log(err))
+      .then(this.initData());
+  };
+
+  // submitFoodToAPI = () => {
+  //   fetch(API, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: {
+  //       name: this.state.textInput
+  //     }
+  //       // .then(function(response) {
+  //       //   console.log(response);
+  //       // })
+  //       .catch(err => console.log(err))
+  //       .then(this.initData())
+  //   });
+  // };
+
+  // Working code from other places in apP
+  //   lookupUPC = UPC => {
+  //   fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       this.setState({
+  //         results: data
+  //       });
+  //     });
+  // };
 
   render() {
     return <View>
         <ScrollView style={styles.container}>
-          {/* <Textfield style={styles.textfield} onChangeText={text => this.setState({ textInput: text })} /> */}
+          {/* <Textfield style={styles.textfield} value={this.textInput} onChangeText={text => this.setState({ textInput: text })} /> */}
           <Button title="Press me" onPress={() => this.submitFoodToAPI()} style={styles.RaisedButton} />
           {this.state.foods.map(food => <View key={food.id} style={styles.card}>
-                <Text style={styles.foodsLabel}>{food.name.charAt(0).toUpperCase() + food.name.slice(1)}</Text>
-                <View style={styles.toggleRow}>
-                  {/* <MKSwitch checked={true} onPress={() => this.deleteItem(food.id)} /> */}
-                  <Button title="Press me" onPress={this._handleButtonPress} />;
-                </View>
-              </View>)}
+              <Text style={styles.foodsLabel}>{food.name.charAt(0).toUpperCase() + food.name.slice(1)}</Text>
+              <View style={styles.toggleRow}>
+                <Button title="Press me" checked={true} onPress={() => this.deleteItem(food.id)} />
+              </View>
+            </View>)}
         </ScrollView>
-      </View>;
+      </View>
   }
 }
 
