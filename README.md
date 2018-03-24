@@ -35,8 +35,8 @@
 4. Database returns nutritional information for food product
 
 ## Future Implementations
-* Digital Pantry - scan your receipts to store purchased items in a digital pantry
-* Digital Cookbook - save favorite recipes and see what ingredients you need to purchase to make recipes based off your digital pantry
+* Digital Pantry - scan your receipts to save and view purchased items in a digital pantry
+* Digital Cookbook - save your favorite recipes and see what ingredients you need to purchase to make recipes based off your digital pantry
 
 ## Resources
 <sup>1</sup> National Institute of Allergy and Infectious Diseases, National Institutes of Health. Report of the NIH Expert Panel on Food Allergy Research. 2006.
