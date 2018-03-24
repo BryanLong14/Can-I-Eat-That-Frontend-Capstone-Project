@@ -21,7 +21,7 @@
 
 ## Technologies
 * HTML, CSS, JavaScript
-* Knex.js, Psql, PostgreSQL
+* PostgreSQL, Knex.js, Psql
 * Node.js
 * Express 
 * React Native
