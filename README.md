@@ -34,5 +34,9 @@
 3. Users scan a barcode Barcode to see if that food matches any items on their "Foods to Avoid" list
 4. Database returns nutritional information for food product
 
+## Future Implementations
+* Digital Pantry - scan your receipts to store purchased items in a digital pantry
+* Digital Cookbook - save favorite recipes and see what ingredients you need to purchase to make recipes based off your digital pantry
+
 ## Resources
 <sup>1</sup> National Institute of Allergy and Infectious Diseases, National Institutes of Health. Report of the NIH Expert Panel on Food Allergy Research. 2006.
