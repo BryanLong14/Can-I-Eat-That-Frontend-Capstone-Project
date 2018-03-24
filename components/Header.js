@@ -5,7 +5,7 @@ import { Font } from 'expo';
 
 const Header = (props) => {
     return <View style={styles.container}>
-        <Image source={require("../assets/images/CanIEatThatLogoMedium.png")} style={styles.image} />
+        <Image source={require("../assets/images/CanIEatThatLogoSmall.png")} style={styles.image} />
         <Text style={styles.header}>{props.headerText}</Text>
       </View>;
 }
