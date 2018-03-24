@@ -11,7 +11,6 @@ import {
 import { WebBrowser } from 'expo';
 import Header from "../components/Header";
 import FoodsToAvoid from "../components/FoodsToAvoid";
-
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {

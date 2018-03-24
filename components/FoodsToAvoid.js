@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, Modal, TouchableHighlight } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
+
 
 class FoodsToAvoid extends Component {
   constructor(props) {
@@ -18,71 +19,37 @@ class FoodsToAvoid extends Component {
   };
 
   initData = () => {
-    axios
-      .get(API)
-      .then(response => this.setState({ foods: response.data }))
-      .catch(err => console.error(err));
-  };
+  }
 
   deleteItem = id => {
-    axios
-      .delete(API + id, {
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify
-      })
-      .catch(err => console.error(err))
-      .then(this.initData());
-  };
+  }
 
   submitFoodToAPI = () => {
-    axios
-      .post(API, {
-        name: this.state.textInput
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(err => console.log(err))
-      .then(this.initData());
-  };
-
-  renderFoods = () => {
-    return (
-      <View>
-        <Textfield style={styles.textfield} onChangeText={text => this.setState({ textInput: text })} />
-        <AddFoodButton onPress={() => this.submitFoodToAPI()} style={styles.RaisedButton} />
-        {/* Get the ternary operator here working to display a progress loading spinner */}
-        {this.state.foods ? (
-          this.state.foods.map(food => (
-            <View key={food.id} style={styles.card}>
-              <Text style={styles.foodsLabel}>{food.name.charAt(0).toUpperCase() + food.name.slice(1)}</Text>
-              <View style={styles.toggleRow}>
-                <Text style={styles.removeText}>Remove from list</Text>
-                <MKSwitch checked={true} onPress={() => this.deleteItem(food.id)} />
-              </View>
-            </View>
-          ))
-        ) : (
-          <Text>"Loading"</Text>
-        )}
-        <GoShoppingButton
-          onPress={() => {
-            console.log(this.state);
-          }}
-          style={styles.RaisedBottomButton}
-        />
-      </View>
-    );
-  };
+  }
 
   render() {
-    return <View>{this.renderFoods()}</View>;
+    return <View>
+        <ScrollView style={styles.container}>
+          {/* <Textfield style={styles.textfield} onChangeText={text => this.setState({ textInput: text })} /> */}
+          <Button title="Press me" onPress={() => this.submitFoodToAPI()} style={styles.RaisedButton} />
+          {this.state.foods.map(food => <View key={food.id} style={styles.card}>
+                <Text style={styles.foodsLabel}>{food.name.charAt(0).toUpperCase() + food.name.slice(1)}</Text>
+                <View style={styles.toggleRow}>
+                  {/* <MKSwitch checked={true} onPress={() => this.deleteItem(food.id)} /> */}
+                  <Button title="Press me" onPress={this._handleButtonPress} />;
+                </View>
+              </View>)}
+        </ScrollView>
+      </View>;
   }
 }
 
 export default FoodsToAvoid;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   card: {
     borderRadius: 4,
     borderWidth: 0.5,
@@ -132,11 +99,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "300"
   }
-});
-
-//// customize the material design theme
-setTheme({
-  primaryColor: MKColor.Indigo,
-  primaryColorRGB: MKColor.RGBIndigo,
-  accentColor: MKColor.Amber
 });
