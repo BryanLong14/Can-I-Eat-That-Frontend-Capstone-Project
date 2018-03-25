@@ -12,7 +12,6 @@ import { WebBrowser } from 'expo';
 import Header from "../components/Header";
 import FoodsToAvoid from "../components/FoodsToAvoid";
 import { MonoText } from '../components/StyledText';
-import { TextField } from "react-native-material-textfield";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -25,7 +24,6 @@ export default class HomeScreen extends React.Component {
           <View style={styles.contentContainer}>
             <Header headerText={"Can I Eat That?"} />
             <FoodsToAvoid />
-          
           </View>
         </ScrollView>
       </View>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
-import { TextField } from "react-native-material-textfield";
+import { View, Text, TextInput, StyleSheet, ScrollView, Button } from "react-native";
+
 import axios from "axios";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
@@ -20,9 +20,10 @@ class FoodsToAvoid extends Component {
   };
 
   initData = () => {
-    axios({ 
-      method: "get",
-      url: API })
+    axios({
+      method: "GET",
+      url: API
+    })
       .then(response => this.setState({ foods: response.data }))
       .catch(err => console.error(err));
   };
@@ -42,54 +43,39 @@ class FoodsToAvoid extends Component {
       .post(API, {
         name: this.state.textInput
       })
-      .then(function(response) {
-        console.log(response);
+      .catch(err => console.log(err))
+      .then(this.initData());
+  };
+
+  submitFoodToAPI = () => {
+    axios
+      .post(API, {
+        name: this.state.textInput
       })
       .catch(err => console.log(err))
       .then(this.initData());
   };
 
-  // submitFoodToAPI = () => {
-  //   fetch(API, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: {
-  //       name: this.state.textInput
-  //     }
-  //       // .then(function(response) {
-  //       //   console.log(response);
-  //       // })
-  //       .catch(err => console.log(err))
-  //       .then(this.initData())
-  //   });
-  // };
-
-  // Working code from other places in apP
-  //   lookupUPC = UPC => {
-  //   fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       this.setState({
-  //         results: data
-  //       });
-  //     });
-  // };
-
   render() {
     return <View>
         <ScrollView style={styles.container}>
-          {/* <Textfield style={styles.textfield} value={this.textInput} onChangeText={text => this.setState({ textInput: text })} /> */}
-          <Button title="Press me" onPress={() => this.submitFoodToAPI()} style={styles.RaisedButton} />
+          <TextInput 
+          placeholder="Add Foods to Avoid" 
+          style={styles.textfield} 
+          value={this.state.textInput} 
+          onChangeText={text => this.setState({
+                textInput: text
+              })} />
+          <Button title="Add Food Item to List" onPress={() => this.submitFoodToAPI()} style={styles.button} />
+          <Text style={styles.H2}>Foods to Avoid</Text>
           {this.state.foods.map(food => <View key={food.id} style={styles.card}>
               <Text style={styles.foodsLabel}>{food.name.charAt(0).toUpperCase() + food.name.slice(1)}</Text>
-              <View style={styles.toggleRow}>
-                <Button title="Press me" checked={true} onPress={() => this.deleteItem(food.id)} />
+              <View>
+                <Button title="Remove Food From List" checked={true} onPress={() => this.deleteItem(food.id)} />
               </View>
             </View>)}
         </ScrollView>
-      </View>
+      </View>;
   }
 }
 
@@ -101,51 +87,36 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: "#d6d7da",
+    borderWidth: 1,
+    borderColor: "#ccc",
     margin: 10,
     borderRadius: 20
   },
+  H2: {
+    fontSize: 25,
+    fontFamily: "RammettoOne-Regular",
+    textAlign: "center",
+    marginTop: 10
+  },
   textfield: {
+    margin: 10,
+    marginBottom: 0,
     height: 50,
-    margin: 15
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    fontSize: 16
   },
-  RaisedButton: {
+  button: {
     marginLeft: 10,
     marginRight: 10,
-    padding: 15,
-    borderRadius: 20,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.7,
-    shadowColor: "black"
-  },
-  RaisedBottomButton: {
-    marginLeft: 10,
-    marginRight: 10,
-    padding: 15,
-    borderRadius: 20,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.7,
-    shadowColor: "black"
-  },
-  toggleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
+    padding: 5
   },
   foodsLabel: {
-    paddingTop: 10,
+    paddingTop: 5,
     fontSize: 20,
+    fontFamily: "RammettoOne-Regular",
     textAlign: "center"
-  },
-  removeText: {
-    textAlign: "center",
-    color: "#666666",
-    marginTop: 10,
-    marginBottom: 20,
-    fontSize: 12,
-    fontWeight: "300"
   }
 });

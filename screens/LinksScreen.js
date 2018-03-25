@@ -13,7 +13,7 @@ export default class LinksScreen extends React.Component {
 
   render() {
     return <ScrollView style={styles.container}>
-        <Header headerText={"Foods To Avoid"}/>
+        <Header headerText={"Can I Eat That?"}/>
         <BarcodeScan />
       </ScrollView>;
   }
