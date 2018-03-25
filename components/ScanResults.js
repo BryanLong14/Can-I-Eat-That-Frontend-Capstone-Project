@@ -15,7 +15,8 @@ export default class ScanResults extends Component {
             <Text style={styles.H2}>{productTitle}</Text>
             <Text style={styles.H3}>Ingredients:</Text>
             {productIngredients.map(ingredient => {
-              if (ingredient.name === ("," || "(")) {
+                {/* Why is this not replacing ( and )? */}
+              if (ingredient.name === ("," || "(") || ")") {
                 return;
               } else {
                 return <Text> {ingredient.name} </Text>;
@@ -37,7 +38,8 @@ const styles = {
     textAlign: "center",
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 10
+    borderRadius: 10,
+    padding: 5
   },
   H3: {
     fontSize: 10,

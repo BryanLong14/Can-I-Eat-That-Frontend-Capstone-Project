@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, Image, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
+import BarcodeScan from '../components/BarcodeScanner'
 import Header from "../components/Header";
 
 export default class LinksScreen extends React.Component {
@@ -13,6 +14,7 @@ export default class LinksScreen extends React.Component {
   render() {
     return <ScrollView style={styles.container}>
         <Header headerText={"Can I Eat That?"}/>
+        <BarcodeScan />
       </ScrollView>;
   }
 }

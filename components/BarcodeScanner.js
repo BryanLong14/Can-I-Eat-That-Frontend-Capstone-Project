@@ -8,7 +8,7 @@ export default class BarcodeScan extends Component {
   state = {
     hasCameraPermission: null,
     UPC: "",
-    results: {}
+    results: ""
   };
 
   componentDidMount() {
@@ -45,13 +45,13 @@ export default class BarcodeScan extends Component {
   };
 
   render() {
-    return <View style={styles.container}>
+return <View style={styles.container}>
         {this.state.hasCameraPermission === null ? <Text>
             Requesting for camera permission
           </Text> : this.state.hasCameraPermission === false ? <Text>
             Camera permission is not granted
-          </Text> : <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />}
-        <ScanResults data={this.state.results} />
+          </Text> : this.state.results === "" ? <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+       : <ScanResults data={this.state.results} />}
       </View>;
   }
 }
