@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Alert } from "react-native";
 import { Constants, BarCodeScanner, Permissions } from "expo";
 import ScanResults from "./ScanResults";
 
+
 export default class BarcodeScan extends Component {
   state = {
     hasCameraPermission: null,
@@ -40,22 +41,18 @@ export default class BarcodeScan extends Component {
       UPC: data.data
     });
     this.lookupUPC(data.data);
-    Alert.alert("Scan successful!", JSON.stringify(data));
+    Alert.alert(`Scan successful!\nRetrieving Product Information from barcode ${data.data}`);
   };
 
   render() {
-    return (
-      <View style={styles.container}>
-        {this.state.hasCameraPermission === null ? (
-          <Text>Requesting for camera permission</Text>
-        ) : this.state.hasCameraPermission === false ? (
-          <Text>Camera permission is not granted</Text>
-        ) : (
-          <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
-        )}
+    return <View style={styles.container}>
+        {this.state.hasCameraPermission === null ? <Text>
+            Requesting for camera permission
+          </Text> : this.state.hasCameraPermission === false ? <Text>
+            Camera permission is not granted
+          </Text> : <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />}
         <ScanResults data={this.state.results} />
-      </View>
-    );
+      </View>;
   }
 }
 
