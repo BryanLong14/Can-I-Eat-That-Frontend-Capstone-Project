@@ -7,8 +7,6 @@
 ## Problem Statement
 * With continually emerging science in agriculture and health, people are realizing the extent to which food allergies and food sensitivities affect them. In the United States alone, researchers estimate that up to 15 million Americans have food allergies<sup>1</sup>.
 * Currently, these people do not have access to a tool that can easily tell them if allergens are contained in food while shopping.
-
-## How Will This Project Solve The Problem?
 * _Can I Eat That?_ categorizes and references food items according to common dietary restrictions, food allergies, and food intolerances. The app allows users to quickly create their own "Foods to Avoid" list and then reference that list when shopping. 
 * The app utilizes the [Food Facts API](https://api.foodfacts.com/) which includes a database of commercially available food items, their ingredients, and their barcodes.     
 
