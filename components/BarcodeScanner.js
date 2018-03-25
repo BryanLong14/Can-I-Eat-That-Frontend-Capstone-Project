@@ -45,14 +45,22 @@ export default class BarcodeScan extends Component {
   };
 
   render() {
-return <View style={styles.container}>
-        {this.state.hasCameraPermission === null ? <Text>
-            Requesting for camera permission
-          </Text> : this.state.hasCameraPermission === false ? <Text>
-            Camera permission is not granted
-          </Text> : this.state.results === "" ? <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
-       : <ScanResults data={this.state.results} />}
-      </View>;
+return (
+  <View style={styles.container}>
+    {this.state.hasCameraPermission === null ? (
+      <Text>Requesting for camera permission</Text>
+    ) : this.state.hasCameraPermission === false ? (
+      <Text>Camera permission is not granted</Text>
+    ) : this.state.results === "" ? (
+      <View style={styles.barcodeContainer}>
+        <Text style={styles.H2}>Scan Your Barcode Below</Text>
+        <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+      </View>
+    ) : (
+      <ScanResults data={this.state.results} />
+    )}
+  </View>
+);
   }
 }
 
@@ -60,15 +68,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center"
+  },
+  barcodeContainer: {
+    flex: 1,
+    alignItems: "center",
     justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: "#ecf0f1"
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    padding: 15
   },
   paragraph: {
     margin: 24,
     fontSize: 18,
     fontWeight: "bold",
-    textAlign: "center",
-    color: "#34495e"
+    textAlign: "center"
+  },
+  H2: {
+    fontSize: 20,
+    fontFamily: "RammettoOne-Regular",
+    textAlign: "center"
   }
 });
