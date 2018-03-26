@@ -2,17 +2,23 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet, Button, Image, Alert } from "react-native";
 import { Constants, BarCodeScanner, Permissions } from "expo";
 import FoodsToAvoid from "./FoodsToAvoid";
-import ProductIngredients from "./ProductIngredients";
+// import ProductIngredients from "./ProductIngredients";
 import axios from "axios";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
+const productTitle =
+  (this.props &&
+    this.props.data &&
+    this.props.data.results &&
+    this.props.data.results.product_detail &&
+    this.props.data.results.product_detail.title) ||
+  [];
+const ingredients = (this.props && this.props.data && this.props.data.results && this.props.data.results.product_ingredients) || [];
 
 class ScanResults extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      foods: []
-    };
+    this.state = { foods: [], showProductIngredients: false, showProductNutrition: false };
   }
 
   componentDidMount = () => {
@@ -31,23 +37,37 @@ class ScanResults extends Component {
       .catch(err => console.error(err));
   };
 
-  showProductIngredients = () => {
-    return <ProductIngredients />;
+  _onPress = () => {
+    this.setState({ showProductIngredients: !this.state.showProductIngredients });
+  };
+
+  _onPressNutrition = () => {
+    this.setState({ showProductNutrition: !this.state.showProductNutrition });
   };
 
   render() {
     const productTitle =
-      (this.props.data && this.props.data.results && this.props.data.results.product_detail && this.props.data.results.product_detail.title) || [];
-
+      (this.props &&
+        this.props.data &&
+        this.props.data.results &&
+        this.props.data.results.product_detail &&
+        this.props.data.results.product_detail.title) ||
+      [];
+    const ingredients = (this.props && this.props.data && this.props.data.results && this.props.data.results.product_ingredients) || [];
+    const productNutrition = (this.props && this.props.data && this.props.data.results && this.props.data.results.product_nutrition) || [];
+    const productImage =
+      (this.props.data &&
+        this.props.data.results &&
+        this.props.data.results.product_detail &&
+        this.props.data.results.product_detail.product_image) ||
+      [];
     let array1 = this.props.data.results.product_ingredients.map(ingredient => {
       return ingredient.name;
     });
-
     let array2 = this.state.foods.map(food => {
       return food.name;
     });
     let badFood = [];
-
     let found =
       array1 &&
       array1.some(food => {
@@ -58,27 +78,55 @@ class ScanResults extends Component {
           return false;
         }
       });
-    console.log("bad food", badFood);
 
     compareFoodsToAvoidAgainstScan = () => {
       if (found === true) {
         return (
-          <Text style={styles.H2}>
-            {productTitle} is not safe to eat. It contains {badFood}
-          </Text>
+          <View style={styles.container}>
+            <Text style={styles.H2red}>This product is not safe for you to eat. It contains {badFood}</Text>
+            <Image source={{ uri: productImage }} style={styles.image} />
+          </View>
         );
       } else {
-        return <Text>This food is safe to eat.</Text>;
+        return (
+          <View style={styles.container}>
+            <Text style={styles.H2}>{productTitle} is safe for you to eat.</Text>
+            <Image source={{ uri: productImage }} style={styles.image} />
+          </View>
+        );
       }
     };
-    console.log("this.props:", this.props);
-    console.log("this.state:", this.state);
 
     return (
       <View>
         {compareFoodsToAvoidAgainstScan()}
-        <Button title="Product Ingredients" onPress={() => this.showProductIngredients()} onPress={() => console.log(event)} style={styles.button} />
-        {/* <Button title="Product Nutrition" onPress={() => this.showProductNutrition()} style={styles.button} /> */}
+        <Button title="Product Ingredients" onPress={this._onPress} style={styles.button} />
+        {this.state.showProductIngredients && (
+          <View>
+            <Text style={styles.H3}>Ingredients:</Text>
+            {ingredients.map(ingredient => {
+              if (ingredient.name === "," || ingredient.name === "(" || ingredient.name === ")" || ingredient.name === ".") {
+                return;
+              } else {
+                return <Text style={styles.text}> {ingredient.name} </Text>;
+              }
+            })}
+            <Text />
+          </View>
+        )}
+        <Button title="Product Nutrition" onPress={this._onPressNutrition} style={styles.button} />
+        {this.state.showProductNutrition && (
+          <View>
+            <Text style={styles.H3}>Nutrition:</Text>
+            {productNutrition.map(product => {
+              return (
+                <Text style={styles.text}>
+                  {product.name}: {product.amount}
+                </Text>
+              );
+            })}
+          </View>
+        )}
       </View>
     );
   }
@@ -87,9 +135,19 @@ class ScanResults extends Component {
 export default ScanResults;
 
 const styles = {
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 18
+  },
   image: {
-    width: 100,
-    height: 100
+    width: 250,
+    height: 250,
+    margin: 5
   },
   button: {
     marginLeft: 10,
@@ -100,13 +158,20 @@ const styles = {
     fontSize: 20,
     fontFamily: "RammettoOne-Regular",
     textAlign: "center",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
     padding: 5
   },
+  H2red: {
+    fontSize: 20,
+    fontFamily: "RammettoOne-Regular",
+    textAlign: "center",
+    color: "red",
+    padding: 5,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10
+  },
   H3: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: "RammettoOne-Regular",
     textAlign: "center"
   }
