@@ -39,50 +39,44 @@ class ScanResults extends Component {
     let array1 = this.props.data.results.product_ingredients.map(ingredient => {
       return ingredient.name;
     });
+
     let array2 = this.state.foods.map(food => {
       return food.name;
     });
-    let found = array1 && array1.some(food => array2.indexOf(food) >= 0);
+    let badFood = [];
 
-    console.log("FOUND: ", found);
-    console.log("array1: ", array1);
-    console.log("array2: ", array2);
+    let found =
+      array1 &&
+      array1.some(food => {
+        if (array2.indexOf(food) >= 0) {
+          badFood.push(food);
+          return true;
+        } else {
+          return false;
+        }
+      });
+    console.log("bad food", badFood);
+
+    isFoundTrue = () => {
+      if (found === true) {
+        return <Text>{badFood} is not safe to eat</Text>;
+      } else {
+        return <Text>This food is safe to eat.</Text>;
+      }
+    };
+    console.log("this.props:", this.props);
+    console.log("this.state:", this.state);
 
     return (
       <View>
-        <Text>This food is</Text>
-        {
-          (isFoundTrue = () => {
-            {
-              if (found === true) {
-                <Text>This food is not safe to eat</Text>;
-              } else {
-                <Text>This food is safe to eat.</Text>;
-              }
-            }
-          })
-        }
+        {isFoundTrue()}
+
         <Button title="Product Ingredients" onPress={() => this.showProductIngredients()} style={styles.button} />
         {/* <Button title="Product Nutrition" onPress={() => this.showProductNutrition()} style={styles.button} /> */}
       </View>
     );
   }
 }
-
-return (
-  <View>
-    <Text style={styles.H3}>Ingredients:</Text>
-    {ingredients.map(ingredient => {
-      /* Rewrite the line below with regex or filter to clean up code */
-      if (ingredient.name === "," || ingredient.name === "(" || ingredient.name === ")") {
-        return;
-      } else {
-        return <Text> {ingredient.name} </Text>;
-      }
-    })}
-    <Text />
-  </View>
-);
 
 export default ScanResults;
 

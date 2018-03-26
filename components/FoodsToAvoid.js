@@ -25,7 +25,6 @@ class FoodsToAvoid extends Component {
       url: API
     })
       .then(response => {
-        // console.log("response from API (foods to avoid): ", response.data)
         this.setState({ foods: response.data });
       })
       .catch(err => console.error(err));
@@ -38,25 +37,22 @@ class FoodsToAvoid extends Component {
         body: JSON.stringify
       })
       .catch(err => console.error(err))
+      // Use state management to remove item baed on id SetState {foods } with filter
       .then(this.initData());
   };
 
   submitFoodToAPI = () => {
     axios
-      .post(API, {
-        name: this.state.textInput
-      })
+      .post(API, { name: this.stringCapitalizer(this.state.textInput) })
       .catch(err => console.log(err))
       .then(this.initData());
   };
 
-  submitFoodToAPI = () => {
-    axios
-      .post(API, {
-        name: this.state.textInput
-      })
-      .catch(err => console.log(err))
-      .then(this.initData());
+  stringCapitalizer = string => {
+    return string
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
 
   render() {
@@ -78,7 +74,11 @@ class FoodsToAvoid extends Component {
           {this.state.foods.map(food => (
             <View key={food.id} style={styles.card}>
               <Text key={food.name} style={styles.foodsLabel}>
-                {food.name.charAt(0).toUpperCase() + food.name.slice(1)}
+                {food.name
+                  .split(" ")
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ")}
+                {/* {food.name.charAt(0).toUpperCase() + food.name.slice(1)} */}
               </Text>
               <View>
                 <Button title="Remove Food From List" checked={true} onPress={() => this.deleteItem(food.id)} />
