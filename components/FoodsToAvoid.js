@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, StyleSheet, ScrollView, Button } from "react-native";
+import { TabNavigator, TabBarBottom } from "react-navigation";
 
 import axios from "axios";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
-
 
 class FoodsToAvoid extends Component {
   constructor(props) {
@@ -24,7 +24,10 @@ class FoodsToAvoid extends Component {
       method: "GET",
       url: API
     })
-      .then(response => this.setState({ foods: response.data }))
+      .then(response => {
+        // console.log("response from API (foods to avoid): ", response.data)
+        this.setState({ foods: response.data });
+      })
       .catch(err => console.error(err));
   };
 
@@ -57,25 +60,34 @@ class FoodsToAvoid extends Component {
   };
 
   render() {
-    return <View>
+    return (
+      <View>
         <ScrollView style={styles.container}>
-          <TextInput 
-          placeholder="Add Foods to Avoid" 
-          style={styles.textfield} 
-          value={this.state.textInput} 
-          onChangeText={text => this.setState({
+          <TextInput
+            placeholder="Add Foods to Avoid"
+            style={styles.textfield}
+            value={this.state.textInput}
+            onChangeText={text =>
+              this.setState({
                 textInput: text
-              })} />
+              })
+            }
+          />
           <Button title="Add Food Item to List" onPress={() => this.submitFoodToAPI()} style={styles.button} />
           <Text style={styles.H2}>Foods to Avoid</Text>
-          {this.state.foods.map(food => <View key={food.id} style={styles.card}>
-              <Text key={food.name} style={styles.foodsLabel}>{food.name.charAt(0).toUpperCase() + food.name.slice(1)}</Text>
+          {this.state.foods.map(food => (
+            <View key={food.id} style={styles.card}>
+              <Text key={food.name} style={styles.foodsLabel}>
+                {food.name.charAt(0).toUpperCase() + food.name.slice(1)}
+              </Text>
               <View>
                 <Button title="Remove Food From List" checked={true} onPress={() => this.deleteItem(food.id)} />
               </View>
-            </View>)}
+            </View>
+          ))}
         </ScrollView>
-      </View>;
+      </View>
+    );
   }
 }
 
