@@ -7,10 +7,6 @@ import axios from "axios";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
 
-showProductIngredients = () => {
-  return <ProductIngredients />;
-};
-
 class ScanResults extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +31,14 @@ class ScanResults extends Component {
       .catch(err => console.error(err));
   };
 
+  showProductIngredients = () => {
+    return <ProductIngredients />;
+  };
+
   render() {
+    const productTitle =
+      (this.props.data && this.props.data.results && this.props.data.results.product_detail && this.props.data.results.product_detail.title) || [];
+
     let array1 = this.props.data.results.product_ingredients.map(ingredient => {
       return ingredient.name;
     });
@@ -57,9 +60,13 @@ class ScanResults extends Component {
       });
     console.log("bad food", badFood);
 
-    isFoundTrue = () => {
+    compareFoodsToAvoidAgainstScan = () => {
       if (found === true) {
-        return <Text>{badFood} is not safe to eat</Text>;
+        return (
+          <Text style={styles.H2}>
+            {productTitle} is not safe to eat. It contains {badFood}
+          </Text>
+        );
       } else {
         return <Text>This food is safe to eat.</Text>;
       }
@@ -69,9 +76,8 @@ class ScanResults extends Component {
 
     return (
       <View>
-        {isFoundTrue()}
-
-        <Button title="Product Ingredients" onPress={() => this.showProductIngredients()} style={styles.button} />
+        {compareFoodsToAvoidAgainstScan()}
+        <Button title="Product Ingredients" onPress={() => this.showProductIngredients()} onPress={() => console.log(event)} style={styles.button} />
         {/* <Button title="Product Nutrition" onPress={() => this.showProductNutrition()} style={styles.button} /> */}
       </View>
     );
