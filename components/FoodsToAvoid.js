@@ -48,6 +48,10 @@ class FoodsToAvoid extends Component {
       .then(this.initData());
   };
 
+  onPress = () => {
+    this.setState({ showTitle: !this.state.showTitle });
+  };
+
   stringCapitalizer = string => {
     return string
       .split(" ")
@@ -55,10 +59,16 @@ class FoodsToAvoid extends Component {
       .join(" ");
   };
 
+  titleFoodsToAvoid = number => {
+    if (foods.name.length > 0) {
+      return;
+    }
+  };
   render() {
     return (
       <View>
         <ScrollView style={styles.container}>
+          <Text style={styles.H2}>Foods to Avoid</Text>
           <TextInput
             placeholder="Add Foods to Avoid"
             style={styles.textfield}
@@ -70,7 +80,6 @@ class FoodsToAvoid extends Component {
             }
           />
           <Button title="Add Food Item to List" onPress={() => this.submitFoodToAPI()} style={styles.button} />
-          <Text style={styles.H2}>Foods to Avoid</Text>
           {this.state.foods.map(food => (
             <View key={food.id} style={styles.card}>
               <Text key={food.name} style={styles.foodsLabel}>
@@ -78,7 +87,6 @@ class FoodsToAvoid extends Component {
                   .split(" ")
                   .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(" ")}
-                {/* {food.name.charAt(0).toUpperCase() + food.name.slice(1)} */}
               </Text>
               <View>
                 <Button title="Remove Food From List" checked={true} onPress={() => this.deleteItem(food.id)} />

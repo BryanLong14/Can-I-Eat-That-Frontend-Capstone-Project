@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button, Image, Alert } from "react-native";
-import { Constants, BarCodeScanner, Permissions } from "expo";
 import FoodsToAvoid from "./FoodsToAvoid";
-// import ProductIngredients from "./ProductIngredients";
 import axios from "axios";
+import BarcodeScanner from "../components/BarcodeScanner";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
 const productTitle =
@@ -45,6 +44,10 @@ class ScanResults extends Component {
     this.setState({ showProductNutrition: !this.state.showProductNutrition });
   };
 
+  _showNewBarcodeScanner = () => {
+    this.setState({ showNewBarcodeScanner: !this.state.showProductNutrition });
+  };
+
   render() {
     const productTitle =
       (this.props &&
@@ -83,14 +86,14 @@ class ScanResults extends Component {
       if (found === true) {
         return (
           <View style={styles.container}>
-            <Text style={styles.H2red}>This product is not safe for you to eat. It contains {badFood}</Text>
+            <Text style={styles.H2red}>Can I Eat That? No! This product contains {badFood}</Text>
             <Image source={{ uri: productImage }} style={styles.image} />
           </View>
         );
       } else {
         return (
           <View style={styles.container}>
-            <Text style={styles.H2}>{productTitle} is safe for you to eat.</Text>
+            <Text style={styles.H2}>Can I Eat That? Yes! {productTitle} is safe for you to eat.</Text>
             <Image source={{ uri: productImage }} style={styles.image} />
           </View>
         );
@@ -105,7 +108,13 @@ class ScanResults extends Component {
           <View>
             <Text style={styles.H3}>Ingredients:</Text>
             {ingredients.map(ingredient => {
-              if (ingredient.name === "," || ingredient.name === "(" || ingredient.name === ")" || ingredient.name === ".") {
+              if (
+                ingredient.name === "," ||
+                ingredient.name === "(" ||
+                ingredient.name === ")" ||
+                ingredient.name === "." ||
+                ingredient.name === ":"
+              ) {
                 return;
               } else {
                 return <Text style={styles.text}> {ingredient.name} </Text>;

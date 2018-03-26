@@ -61,7 +61,7 @@ export default class BarcodeScan extends Component {
           <View style={styles.barcodeContainer}>
             <Text style={styles.H2}>Scan Your Barcode Below</Text>
             <Button title="Dummy Data" onPress={() => this.lookupUPC()} style={styles.button} />
-            <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+            <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
           </View>
         ) : (
           <ScanResults data={this.state.results} />
