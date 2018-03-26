@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet, Button, Alert } from "react-native";
 import { Constants, BarCodeScanner, Permissions } from "expo";
 import ScanResults from "./ScanResults";
-import APIresults from "./APIresult";
+// import APIresults from "./APIresult";
 
 export default class BarcodeScan extends Component {
   state = {
@@ -15,22 +15,21 @@ export default class BarcodeScan extends Component {
     this._requestCameraPermission();
   }
 
-  lookupUPC = () => {
-      this.setState({
-        results: APIresults
-      });
-};
-  
-  
-  // lookupUPC = UPC => {
-  //   fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
-  //     .then(res => res.json())
-  //     .then(data => {
+  //   lookupUPC = () => {
   //       this.setState({
-  //         results: data
+  //         results: APIresults
   //       });
-  //     });
   // };
+
+  lookupUPC = UPC => {
+    fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          results: data
+        });
+      });
+  };
 
   _requestCameraPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -52,23 +51,23 @@ export default class BarcodeScan extends Component {
   };
 
   render() {
-return (
-  <View style={styles.container}>
-    {this.state.hasCameraPermission === null ? (
-      <Text>Requesting for camera permission</Text>
-    ) : this.state.hasCameraPermission === false ? (
-      <Text>Camera permission is not granted</Text>
-    ) : this.state.results === "" ? (
-      <View style={styles.barcodeContainer}>
-        <Text style={styles.H2}>Scan Your Barcode Below</Text>
-        <Button title="Dummy Data" onPress={() => this.lookupUPC()} style={styles.button} />
-        <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+    return (
+      <View style={styles.container}>
+        {this.state.hasCameraPermission === null ? (
+          <Text>Requesting for camera permission</Text>
+        ) : this.state.hasCameraPermission === false ? (
+          <Text>Camera permission is not granted</Text>
+        ) : this.state.results === "" ? (
+          <View style={styles.barcodeContainer}>
+            <Text style={styles.H2}>Scan Your Barcode Below</Text>
+            {/* <Button title="Dummy Data" onPress={() => this.lookupUPC()} style={styles.button} /> */}
+            <BarCodeScanner torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+          </View>
+        ) : (
+          <ScanResults data={this.state.results} />
+        )}
       </View>
-    ) : (
-      <ScanResults data={this.state.results} />
-    )}
-  </View>
-);
+    );
   }
 }
 
