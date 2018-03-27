@@ -49,3 +49,11 @@
 ## Resources
 
 <sup>1</sup> National Institute of Allergy and Infectious Diseases, National Institutes of Health. Report of the NIH Expert Panel on Food Allergy Research. 2006.
+
+## Author
+
+BryanLong: https://github.com/bryanlong14
+
+# License
+
+MIT
