@@ -7,6 +7,9 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "rnpm": {
+    "assets": ["./assets/fonts"]
+  },
   "dependencies": {
     "@expo/samples": "2.1.1",
     "axios": "^0.18.0",
