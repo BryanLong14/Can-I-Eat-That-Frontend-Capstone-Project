@@ -2,11 +2,11 @@
 
 ## Product Demo
 
-[Video Link](https://youtu.be/BxrDNAAtXcA)
+[Video Link](https://youtu.be/zoknZZzM8vU)
 
 ## Project Description
 
-* _Can I Eat That?_ is a mobile app that allows users to quickly create a custom list of food items and then easily avoid purchasing those items when shopping. Users can add items to their "Foods to Avoid" list based on dietary restrictions such as paleo, vegan, vegetarian, and autoimmune diet. Alternatively, users can customize a list of foods to avoid based on specific allergies or food sensitivities.
+* _Can I Eat That?_ is a mobile app that allows users to quickly create a custom list of food items and then easily avoid purchasing those items when shopping based on dietary restrictions, allergies, or food sensitivities.
 * Users are then able to scan barcodes at the grocery store to see if the product contains any of ingredients on their "Foods to Avoid" list. Item nutrition information is also displayed so users can monitor and track their health goals.
 
 ## Problem Statement
