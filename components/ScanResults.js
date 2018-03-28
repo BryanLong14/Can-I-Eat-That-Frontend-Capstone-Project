@@ -167,8 +167,8 @@ const styles = {
   backdrop: {
     flex: 1,
     flexDirection: "column",
-    width: 250,
-    height: 250,
+    width: 200,
+    height: 200,
     marginTop: 90
   },
   container: {
@@ -186,9 +186,8 @@ const styles = {
     opacity: 0.8
   },
   image: {
-    width: 250,
-    height: 250
-    // marginLeft: 35
+    width: 200,
+    height: 200
   },
   button: {
     marginLeft: 10,
@@ -196,7 +195,7 @@ const styles = {
     padding: 5
   },
   H2: {
-    marginTop: 10,
+    marginTop: 14,
     fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",

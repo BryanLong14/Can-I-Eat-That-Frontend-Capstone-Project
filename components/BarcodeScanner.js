@@ -15,21 +15,21 @@ export default class BarcodeScan extends Component {
     this._requestCameraPermission();
   }
 
-  lookupUPC = () => {
-    this.setState({
-      results: APIresults
-    });
-  };
-
-  // lookupUPC = UPC => {
-  //   fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       this.setState({
-  //         results: data
-  //       });
-  //     });
+  // lookupUPC = () => {
+  //   this.setState({
+  //     results: APIresults
+  //   });
   // };
+
+  lookupUPC = UPC => {
+    fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          results: data
+        });
+      });
+  };
 
   _requestCameraPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -60,11 +60,22 @@ export default class BarcodeScan extends Component {
         ) : this.state.results === "" ? (
           <View style={styles.barcodeContainer}>
             <Text style={styles.H2}>Scan Your Barcode Below</Text>
-            <Button title="Dummy Data" onPress={() => this.lookupUPC()} style={styles.button} />
-            <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 300, width: 300 }} />
+            {/* <Button title="Dummy Data" onPress={() => this.lookupUPC()} /> */}
+            <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
           </View>
         ) : (
-          <ScanResults data={this.state.results} />
+          <View style={styles.button}>
+            <ScanResults data={this.state.results} />
+            <Button
+              title="Scan Another Barcode"
+              onPress={() => {
+                this.setState({
+                  results: ""
+                  // UPC: ""
+                });
+              }}
+            />
+          </View>
         )}
       </View>
     );
@@ -76,6 +87,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  button: {
+    marginBottom: 20
   },
   barcodeContainer: {
     flex: 1,

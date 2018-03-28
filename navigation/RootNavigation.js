@@ -20,13 +20,6 @@ const RootStackNavigator = StackNavigator(
   }
 );
 
-// this.props.navigator.setTabButton({
-//   tabIndex: 0, // (optional) if missing, the icon will be added to this screen's tab
-//   icon: require("../img/one.png"), // local image asset for the tab icon unselected state (optional)
-//   selectedIcon: require("../img/one_selected.png"), // local image asset for the tab icon selected state (optional, iOS only)
-//   label: "New Label" // tab label that appears under the icon (optional)
-// });
-
 export default class RootNavigator extends React.Component {
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
@@ -41,13 +34,7 @@ export default class RootNavigator extends React.Component {
   }
 
   _registerForPushNotifications() {
-    // Send our push token over to our backend so we can receive notifications
-    // You can comment the following line out if you want to stop receiving
-    // a notification every time you open the app. Check out the source
-    // for this function in api/registerForPushNotificationsAsync.js
     registerForPushNotificationsAsync();
-
-    // Watch for incoming notifications
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 

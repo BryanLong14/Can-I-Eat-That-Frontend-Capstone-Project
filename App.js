@@ -6,7 +6,9 @@ import { Ionicons } from "@expo/vector-icons";
 import RootNavigation from "./navigation/RootNavigation";
 export default class App extends React.Component {
   state = {
-    isLoadingComplete: false
+    isLoadingComplete: false,
+    currentState: {},
+    previousState: {}
   };
 
   render() {
@@ -17,7 +19,11 @@ export default class App extends React.Component {
         <View style={styles.container}>
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}
           {Platform.OS === "android" && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
+          <RootNavigation
+            onNavigationStateChange={(currentState, previousState) => {
+              this.setState({ currentState, previousState });
+            }}
+          />
         </View>
       );
     }
