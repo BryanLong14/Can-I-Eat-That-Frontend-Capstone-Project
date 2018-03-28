@@ -3,6 +3,7 @@
 ## Product Demo
 
 [Video Link](https://youtu.be/zoknZZzM8vU)
+![_Can I Eat That?_ Demo](https://github.com/BryanLong14/Can-I-Eat-That-Frontend-Capstone-Project/blob/master/assets/Product%20Demo.gif)
 
 ## Project Description
 
