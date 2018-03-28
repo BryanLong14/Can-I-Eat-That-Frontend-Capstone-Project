@@ -160,8 +160,9 @@ const styles = {
     position: "absolute",
     top: 10,
     bottom: 0,
-    left: 35,
-    right: 0
+    left: 0,
+    right: 0,
+    alignItems: "center"
   },
   backdrop: {
     flex: 1,
@@ -180,12 +181,14 @@ const styles = {
     fontSize: 18
   },
   overlay: {
+    flex: 1,
+    alignItems: "center",
     opacity: 0.8
   },
   image: {
     width: 250,
-    height: 250,
-    marginLeft: 35
+    height: 250
+    // marginLeft: 35
   },
   button: {
     marginLeft: 10,
