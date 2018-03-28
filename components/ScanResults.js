@@ -82,15 +82,25 @@ class ScanResults extends Component {
       if (found === true) {
         return (
           <View style={styles.container}>
-            <Text style={styles.H2red}>Can I Eat That? No! This product contains {badFood}</Text>
-            <Image source={{ uri: productImage }} style={styles.image} />
+            <View style={styles.backgroundContainer}>
+              <Image source={{ uri: productImage }} style={styles.backdrop} />
+            </View>
+            <View style={styles.overlay}>
+              <Text style={styles.H2red}>Can I Eat That? No! This product contains {badFood}</Text>
+              <Image style={styles.image} source={require("../assets/images/nosmall.png")} />
+            </View>
           </View>
         );
       } else {
         return (
           <View style={styles.container}>
-            <Text style={styles.H2}>Can I Eat That? Yes! {productTitle} is safe for you to eat.</Text>
-            <Image source={{ uri: productImage }} style={styles.image} />
+            <View style={styles.backgroundContainer}>
+              <Image source={{ uri: productImage }} style={styles.backdrop} />
+            </View>
+            <View style={styles.overlay}>
+              <Text style={styles.H2}>Can I Eat That? Yes! {productTitle} is safe for you to eat.</Text>
+              <Image style={styles.image} source={require("../assets/images/yes.png")} />
+            </View>
           </View>
         );
       }
@@ -146,6 +156,20 @@ class ScanResults extends Component {
 export default ScanResults;
 
 const styles = {
+  backgroundContainer: {
+    position: "absolute",
+    top: 10,
+    bottom: 0,
+    left: 35,
+    right: 0
+  },
+  backdrop: {
+    flex: 1,
+    flexDirection: "column",
+    width: 250,
+    height: 250,
+    marginTop: 90
+  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -155,10 +179,13 @@ const styles = {
     textAlign: "center",
     fontSize: 18
   },
+  overlay: {
+    opacity: 0.8
+  },
   image: {
     width: 250,
     height: 250,
-    margin: 5
+    marginLeft: 35
   },
   button: {
     marginLeft: 10,
