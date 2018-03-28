@@ -160,13 +160,13 @@ const styles = {
     padding: 5
   },
   H2: {
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",
     padding: 5
   },
   H2red: {
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",
     color: "red",
