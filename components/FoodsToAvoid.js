@@ -37,20 +37,14 @@ class FoodsToAvoid extends Component {
         body: JSON.stringify
       })
       .catch(err => console.error(err))
-      // Use state management to remove item baed on id SetState {foods } with filter
-      .then(this.initData());
-    // .then(id => {
-    //   this.setState({
-    //     foods: this.state.foods.filter(el => el !== id)
-    //   });
-    // });
+      .then(() => this.initData());
   };
 
   submitFoodToAPI = () => {
     axios
       .post(API, { name: this.stringCapitalizer(this.state.textInput) })
       .catch(err => console.log(err))
-      .then(this.initData());
+      .then(() => this.initData());
   };
 
   onPress = () => {

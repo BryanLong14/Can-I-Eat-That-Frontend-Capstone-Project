@@ -12,7 +12,7 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header headerText={"Product Info"} />
+        <Header headerText={"Product Info  "} />
         <ScrollView style={styles.container}>
           <BarcodeScan />
         </ScrollView>
