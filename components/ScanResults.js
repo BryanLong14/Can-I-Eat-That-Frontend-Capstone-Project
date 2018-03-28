@@ -102,7 +102,9 @@ class ScanResults extends Component {
         <Button title="Product Ingredients" onPress={this._onPress} style={styles.button} />
         {this.state.showProductIngredients && (
           <View>
-            <Text style={styles.H3}>Ingredients:</Text>
+            <Text key={productTitle} style={styles.H3}>
+              Ingredients:
+            </Text>
             {ingredients.map(ingredient => {
               if (
                 ingredient.name === "," ||
@@ -113,7 +115,11 @@ class ScanResults extends Component {
               ) {
                 return;
               } else {
-                return <Text style={styles.text}> {ingredient.name} </Text>;
+                return (
+                  <Text key={ingredient.id} style={styles.text}>
+                    {ingredient.name}
+                  </Text>
+                );
               }
             })}
             <Text />
@@ -125,7 +131,7 @@ class ScanResults extends Component {
             <Text style={styles.H3}>Nutrition:</Text>
             {productNutrition.map(product => {
               return (
-                <Text style={styles.text}>
+                <Text key={product.id} style={styles.text}>
                   {product.name}: {product.amount}
                 </Text>
               );
@@ -160,12 +166,14 @@ const styles = {
     padding: 5
   },
   H2: {
+    marginTop: 10,
     fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",
-    padding: 5
+    padding: 8
   },
   H2red: {
+    marginTop: 14,
     fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",
