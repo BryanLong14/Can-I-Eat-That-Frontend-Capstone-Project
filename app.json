@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "frontend-xde",
-    "description": "A very interesting project.",
+    "description":
+      "Product Barcode Scanner allows users to quickly create a custom list of food items and then easily avoid purchasing those items when shopping.",
     "slug": "frontend-xde",
     "privacy": "public",
     "sdkVersion": "25.0.0",
