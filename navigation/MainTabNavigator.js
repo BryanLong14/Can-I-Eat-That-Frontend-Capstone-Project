@@ -28,13 +28,13 @@ export default TabNavigator(
         let iconName;
         switch (routeName) {
           case "Home":
-            iconName = Platform.OS === "ios" ? `ios-information-circle${focused ? "" : "-outline"}` : "md-information-circle";
+            iconName = Platform.OS === "ios" ? `ios-list${focused ? "" : "-outline"}` : "md-information-circle";
             break;
           case "Links":
-            iconName = Platform.OS === "ios" ? `ios-link${focused ? "" : "-outline"}` : "md-link";
+            iconName = Platform.OS === "ios" ? `ios-barcode${focused ? "" : "-outline"}` : "md-link";
             break;
           case "Settings":
-            iconName = Platform.OS === "ios" ? `ios-options${focused ? "" : "-outline"}` : "md-options";
+            iconName = Platform.OS === "ios" ? `ios-at${focused ? "" : "-outline"}` : "md-options";
         }
         return <Ionicons name={iconName} size={28} style={{ marginBottom: -3 }} color={focused ? Colors.tabIconSelected : Colors.tabIconDefault} />;
       }

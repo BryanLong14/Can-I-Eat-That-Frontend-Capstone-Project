@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",
-    marginTop: 10
+    marginTop: 15
   },
   textfield: {
     margin: 10,

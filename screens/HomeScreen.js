@@ -7,6 +7,7 @@ import FoodsToAvoid from "../components/FoodsToAvoid";
 // import StartupScreen from "../components/StartupScreen";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
+    title: "Foods to Avoid",
     header: null
   };
 

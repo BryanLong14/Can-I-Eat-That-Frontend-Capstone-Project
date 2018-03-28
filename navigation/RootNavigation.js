@@ -1,24 +1,31 @@
-import { Notifications } from 'expo';
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { Notifications } from "expo";
+import React from "react";
+import { StackNavigator } from "react-navigation";
 
-import MainTabNavigator from './MainTabNavigator';
-import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+import MainTabNavigator from "./MainTabNavigator";
+import registerForPushNotificationsAsync from "../api/registerForPushNotificationsAsync";
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
-      screen: MainTabNavigator,
-    },
+      screen: MainTabNavigator
+    }
   },
   {
     navigationOptions: () => ({
       headerTitleStyle: {
-        fontWeight: 'normal',
-      },
-    }),
+        fontWeight: "normal"
+      }
+    })
   }
 );
+
+// this.props.navigator.setTabButton({
+//   tabIndex: 0, // (optional) if missing, the icon will be added to this screen's tab
+//   icon: require("../img/one.png"), // local image asset for the tab icon unselected state (optional)
+//   selectedIcon: require("../img/one_selected.png"), // local image asset for the tab icon selected state (optional, iOS only)
+//   label: "New Label" // tab label that appears under the icon (optional)
+// });
 
 export default class RootNavigator extends React.Component {
   componentDidMount() {
