@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   H2: {
     fontSize: 25,
-    fontFamily: "RammettoOne-Regular",
+    fontFamily: "Dosis-Regular",
     textAlign: "center",
     marginTop: 10
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   foodsLabel: {
     paddingTop: 5,
     fontSize: 20,
-    fontFamily: "RammettoOne-Regular",
+    fontFamily: "Dosis-Regular",
     textAlign: "center"
   }
 });

@@ -15,21 +15,21 @@ export default class BarcodeScan extends Component {
     this._requestCameraPermission();
   }
 
-  // lookupUPC = () => {
-  //   this.setState({
-  //     results: APIresults
-  //   });
-  // };
-
-  lookupUPC = UPC => {
-    fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          results: data
-        });
-      });
+  lookupUPC = () => {
+    this.setState({
+      results: APIresults
+    });
   };
+
+  // lookupUPC = UPC => {
+  //   fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       this.setState({
+  //         results: data
+  //       });
+  //     });
+  // };
 
   _requestCameraPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -60,8 +60,8 @@ export default class BarcodeScan extends Component {
         ) : this.state.results === "" ? (
           <View style={styles.barcodeContainer}>
             <Text style={styles.H2}>Scan Your Barcode Below</Text>
-            {/* <Button title="Dummy Data" onPress={() => this.lookupUPC()} style={styles.button} /> */}
-            <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+            <Button title="Dummy Data" onPress={() => this.lookupUPC()} style={styles.button} />
+            <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 300, width: 300 }} />
           </View>
         ) : (
           <ScanResults data={this.state.results} />
@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
-    padding: 15
+    padding: 15,
+    marginTop: 20
   },
   paragraph: {
     margin: 24,
@@ -93,8 +94,9 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   H2: {
-    fontSize: 20,
-    fontFamily: "RammettoOne-Regular",
+    fontSize: 25,
+    fontFamily: "Dosis-Regular",
+    paddingBottom: 12,
     textAlign: "center"
   }
 });

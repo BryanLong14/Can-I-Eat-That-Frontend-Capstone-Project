@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Image, StyleSheet } from "react-native";
+import { ScrollView, View, Image, StyleSheet } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
 import BarcodeScan from "../components/BarcodeScanner";
 import Header from "../components/Header";
@@ -12,17 +12,18 @@ export default class LinksScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Header headerText={"Product Info"} />
-        <BarcodeScan />
-      </ScrollView>
+        <ScrollView style={styles.container}>
+          <BarcodeScan />
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     flex: 1
   }
 });

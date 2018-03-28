@@ -44,10 +44,6 @@ class ScanResults extends Component {
     this.setState({ showProductNutrition: !this.state.showProductNutrition });
   };
 
-  _showNewBarcodeScanner = () => {
-    this.setState({ showNewBarcodeScanner: !this.state.showProductNutrition });
-  };
-
   render() {
     const productTitle =
       (this.props &&
@@ -165,13 +161,13 @@ const styles = {
   },
   H2: {
     fontSize: 20,
-    fontFamily: "RammettoOne-Regular",
+    fontFamily: "Dosis-Regular",
     textAlign: "center",
     padding: 5
   },
   H2red: {
     fontSize: 20,
-    fontFamily: "RammettoOne-Regular",
+    fontFamily: "Dosis-Regular",
     textAlign: "center",
     color: "red",
     padding: 5,
@@ -180,8 +176,8 @@ const styles = {
     borderRadius: 10
   },
   H3: {
-    fontSize: 18,
-    fontFamily: "RammettoOne-Regular",
+    fontSize: 25,
+    fontFamily: "Dosis-Regular",
     textAlign: "center"
   }
 };
