@@ -5,14 +5,14 @@ import axios from "axios";
 import BarcodeScanner from "../components/BarcodeScanner";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
-const productTitle =
-  (this.props &&
-    this.props.data &&
-    this.props.data.results &&
-    this.props.data.results.product_detail &&
-    this.props.data.results.product_detail.title) ||
-  [];
-const ingredients = (this.props && this.props.data && this.props.data.results && this.props.data.results.product_ingredients) || [];
+// const productTitle =
+//   (this.props &&
+//     this.props.data &&
+//     this.props.data.results &&
+//     this.props.data.results.product_detail &&
+//     this.props.data.results.product_detail.title) ||
+//   [];
+// const ingredients = (this.props && this.props.data && this.props.data.results && this.props.data.results.product_ingredients) || [];
 
 class ScanResults extends Component {
   constructor(props) {
@@ -83,6 +83,7 @@ class ScanResults extends Component {
         return (
           <View style={styles.container}>
             <View style={styles.backgroundContainer}>
+              {console.log(productImage)}
               <Image source={{ uri: productImage }} style={styles.backdrop} />
             </View>
             <View style={styles.overlay}>
@@ -95,6 +96,7 @@ class ScanResults extends Component {
         return (
           <View style={styles.container}>
             <View style={styles.backgroundContainer}>
+              {console.log(productImage)}
               <Image source={{ uri: productImage }} style={styles.backdrop} />
             </View>
             <View style={styles.overlay}>
@@ -171,8 +173,8 @@ const styles = {
   backdrop: {
     flex: 1,
     flexDirection: "column",
-    width: 220,
-    height: 240,
+    width: 200,
+    height: 200,
     marginTop: 80
   },
   container: {
@@ -192,8 +194,8 @@ const styles = {
   },
   image: {
     width: 180,
-    height: 170,
-    marginTop: 25
+    height: 170
+    // marginTop: 25
   },
   H2: {
     marginTop: 14,

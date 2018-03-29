@@ -15,21 +15,21 @@ export default class BarcodeScan extends Component {
     this._requestCameraPermission();
   }
 
-  lookupUPC = () => {
-    this.setState({
-      results: APIresults
-    });
-  };
-
-  // lookupUPC = UPC => {
-  //   fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       this.setState({
-  //         results: data
-  //       });
-  //     });
+  // lookupUPC = () => {
+  //   this.setState({
+  //     results: APIresults
+  //   });
   // };
+
+  lookupUPC = UPC => {
+    fetch(`https://can-i-eat-that-api.herokuapp.com/api/scan/${UPC}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          results: data
+        });
+      });
+  };
 
   _requestCameraPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -61,7 +61,7 @@ export default class BarcodeScan extends Component {
           ) : this.state.results === "" ? (
             <View style={styles.barcodeContainer}>
               <Text style={styles.H2}>Scan Your Barcode Below</Text>
-              <Button title="Dummy Data" onPress={() => this.lookupUPC()} />
+              {/* <Button title="Dummy Data" onPress={() => this.lookupUPC()} /> */}
               <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
             </View>
           ) : (
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   innercontainer: {
-    marginTop: 50,
+    // marginTop: 50,
     flex: 1
   },
   barcodeContainer: {
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
-    padding: 15,
-    marginTop: 20
+    padding: 15
+    // marginTop: 20
   },
   paragraph: {
     margin: 24,
