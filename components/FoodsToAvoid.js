@@ -44,7 +44,8 @@ class FoodsToAvoid extends Component {
     axios
       .post(API, { name: this.stringCapitalizer(this.state.textInput) })
       .catch(err => console.log(err))
-      .then(() => this.initData());
+      .then(() => this.initData())
+      .then(() => this.textInput.clear());
   };
 
   onPress = () => {
@@ -69,6 +70,9 @@ class FoodsToAvoid extends Component {
         <ScrollView style={styles.container}>
           <Text style={styles.H2}>Foods to Avoid</Text>
           <TextInput
+            ref={input => {
+              this.textInput = input;
+            }}
             placeholder="Add Foods to Avoid"
             style={styles.textfield}
             value={this.state.textInput}
