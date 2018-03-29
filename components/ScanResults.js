@@ -5,14 +5,6 @@ import axios from "axios";
 import BarcodeScanner from "../components/BarcodeScanner";
 
 const API = "https://can-i-eat-that-api.herokuapp.com/api/foods/";
-// const productTitle =
-//   (this.props &&
-//     this.props.data &&
-//     this.props.data.results &&
-//     this.props.data.results.product_detail &&
-//     this.props.data.results.product_detail.title) ||
-//   [];
-// const ingredients = (this.props && this.props.data && this.props.data.results && this.props.data.results.product_ingredients) || [];
 
 class ScanResults extends Component {
   constructor(props) {
@@ -58,7 +50,7 @@ class ScanResults extends Component {
       (this.props.data &&
         this.props.data.results &&
         this.props.data.results.product_detail &&
-        this.props.data.results.product_detail.product_image) ||
+        this.props.data.results.product_detail.https_product_image) ||
       [];
     let array1 = this.props.data.results.product_ingredients.map(ingredient => {
       return ingredient.name;
