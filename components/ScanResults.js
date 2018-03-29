@@ -86,10 +86,7 @@ class ScanResults extends Component {
               <Image source={{ uri: productImage }} style={styles.backdrop} />
             </View>
             <View style={styles.overlay}>
-              <Text style={styles.H2red}>
-                {console.log(productImage)}
-                Can I Eat That? No! This product contains {badFood}
-              </Text>
+              <Text style={styles.H2red}>Can I Eat That? No! This product contains {badFood}</Text>
               <Image style={styles.image} source={require("../assets/images/nosmall.png")} />
             </View>
           </View>
@@ -98,7 +95,6 @@ class ScanResults extends Component {
         return (
           <View style={styles.container}>
             <View style={styles.backgroundContainer}>
-              {console.log(productImage)}
               <Image source={{ uri: productImage }} style={styles.backdrop} />
             </View>
             <View style={styles.overlay}>
@@ -113,6 +109,7 @@ class ScanResults extends Component {
     return (
       <View>
         {compareFoodsToAvoidAgainstScan()}
+        <View style={styles.largecontainer} />
         <Button title="Product Ingredients" onPress={this._onPress} />
         {this.state.showProductIngredients && (
           <View>
@@ -152,7 +149,6 @@ class ScanResults extends Component {
             })}
           </View>
         )}
-        <Text>Copyright Bryan Long 2018 www.BryanLong.tech</Text>
       </View>
     );
   }
@@ -161,6 +157,9 @@ class ScanResults extends Component {
 export default ScanResults;
 
 const styles = {
+  largecontainer: {
+    marginTop: 50
+  },
   backgroundContainer: {
     position: "absolute",
     top: 20,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Button, Alert } from "react-native";
 import { Constants, BarCodeScanner, Permissions } from "expo";
 import ScanResults from "./ScanResults";
 import APIresults from "./APIresult";
@@ -52,38 +52,46 @@ export default class BarcodeScan extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.state.hasCameraPermission === null ? (
-          <Text>Requesting for camera permission</Text>
-        ) : this.state.hasCameraPermission === false ? (
-          <Text>Camera permission is not granted</Text>
-        ) : this.state.results === "" ? (
-          <View style={styles.barcodeContainer}>
-            <Text style={styles.H2}>Scan Your Barcode Below</Text>
-            <Button title="Dummy Data" onPress={() => this.lookupUPC()} />
-            <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
-          </View>
-        ) : (
-          <View style={styles.button}>
-            <ScanResults data={this.state.results} />
-            <Button
-              title="Scan Another Barcode"
-              onPress={() => {
-                this.setState({ results: "", UPC: "" });
-              }}
-            />
-          </View>
-        )}
+      <View style={styles.scrollcontainer}>
+        <ScrollView style={styles.container}>
+          {this.state.hasCameraPermission === null ? (
+            <Text>Requesting for camera permission</Text>
+          ) : this.state.hasCameraPermission === false ? (
+            <Text>Camera permission is not granted</Text>
+          ) : this.state.results === "" ? (
+            <View style={styles.barcodeContainer}>
+              <Text style={styles.H2}>Scan Your Barcode Below</Text>
+              <Button title="Dummy Data" onPress={() => this.lookupUPC()} />
+              <BarCodeScanner info={this.state} torchMode="on" onBarCodeRead={this._handleBarCodeRead} style={{ height: 200, width: 200 }} />
+            </View>
+          ) : (
+            <View>
+              <ScanResults data={this.state.results} />
+              <Button
+                title="Scan Another Barcode"
+                onPress={() => {
+                  this.setState({ results: "", UPC: "" });
+                }}
+              />
+            </View>
+          )}
+        </ScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollcontainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    marginBottom: 20
+  },
+  container: {
+    flex: 1
+  },
+  innercontainer: {
+    marginTop: 50,
+    flex: 1
   },
   barcodeContainer: {
     flex: 1,
