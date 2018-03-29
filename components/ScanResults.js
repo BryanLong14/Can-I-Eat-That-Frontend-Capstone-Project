@@ -86,7 +86,10 @@ class ScanResults extends Component {
               <Image source={{ uri: productImage }} style={styles.backdrop} />
             </View>
             <View style={styles.overlay}>
-              <Text style={styles.H2red}>Can I Eat That? No! This product contains {badFood}</Text>
+              <Text style={styles.H2red}>
+                {console.log(productImage)}
+                Can I Eat That? No! This product contains {badFood}
+              </Text>
               <Image style={styles.image} source={require("../assets/images/nosmall.png")} />
             </View>
           </View>
@@ -95,6 +98,7 @@ class ScanResults extends Component {
         return (
           <View style={styles.container}>
             <View style={styles.backgroundContainer}>
+              {console.log(productImage)}
               <Image source={{ uri: productImage }} style={styles.backdrop} />
             </View>
             <View style={styles.overlay}>
@@ -109,7 +113,7 @@ class ScanResults extends Component {
     return (
       <View>
         {compareFoodsToAvoidAgainstScan()}
-        <Button title="Product Ingredients" onPress={this._onPress} style={styles.button} />
+        <Button title="Product Ingredients" onPress={this._onPress} />
         {this.state.showProductIngredients && (
           <View>
             <Text key={productTitle} style={styles.H3}>
@@ -135,7 +139,7 @@ class ScanResults extends Component {
             <Text />
           </View>
         )}
-        <Button title="Product Nutrition" onPress={this._onPressNutrition} style={styles.button} />
+        <Button title="Product Nutrition" onPress={this._onPressNutrition} />
         {this.state.showProductNutrition && (
           <View>
             <Text style={styles.H3}>Nutrition:</Text>
@@ -148,6 +152,7 @@ class ScanResults extends Component {
             })}
           </View>
         )}
+        <Text>Copyright Bryan Long 2018 www.BryanLong.tech</Text>
       </View>
     );
   }
@@ -158,23 +163,24 @@ export default ScanResults;
 const styles = {
   backgroundContainer: {
     position: "absolute",
-    top: 10,
-    bottom: 0,
+    top: 20,
     left: 0,
     right: 0,
+    marginBottom: 20,
     alignItems: "center"
   },
   backdrop: {
     flex: 1,
     flexDirection: "column",
-    width: 200,
-    height: 200,
-    marginTop: 90
+    width: 220,
+    height: 240,
+    marginTop: 80
   },
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: 15
   },
   text: {
     textAlign: "center",
@@ -186,13 +192,9 @@ const styles = {
     opacity: 0.8
   },
   image: {
-    width: 200,
-    height: 200
-  },
-  button: {
-    marginLeft: 10,
-    marginRight: 10,
-    padding: 5
+    width: 180,
+    height: 170,
+    marginTop: 25
   },
   H2: {
     marginTop: 14,
@@ -202,7 +204,7 @@ const styles = {
     padding: 8
   },
   H2red: {
-    marginTop: 14,
+    marginTop: 20,
     fontSize: 25,
     fontFamily: "Dosis-Regular",
     textAlign: "center",

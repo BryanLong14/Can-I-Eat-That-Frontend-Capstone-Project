@@ -17,6 +17,7 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+          {(console.disableYellowBox = true)}
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}
           {Platform.OS === "android" && <View style={styles.statusBarUnderlay} />}
           <RootNavigation
@@ -40,8 +41,6 @@ export default class App extends React.Component {
   };
 
   _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
     console.warn(error);
   };
 

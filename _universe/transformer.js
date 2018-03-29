@@ -9,63 +9,46 @@
  * Note: This is a fork of the fb-specific transform.js
  *
  */
-'use strict';
+"use strict";
 
-/**
- * [Expo] This transformer was based on React Native's transformer with the
- * following changes:
- *   - Makes the packager use react-native-lab's copy of react-native
- *   - Rewrites the paths of this module's dependencies so we load the
- *     dependencies from react-native-lab's copy of react-native, to simulate
- *     if we hadn't forked the transformer at all
- */
+const fs = require("fs");
+const path = require("path");
 
-const fs = require('fs');
-const path = require('path');
-
-let moduleBasePath = '';
+let moduleBasePath = "";
 let isLinked = false;
-const rootPath = path.resolve('.');
-const nodeModulePath = path.join(rootPath, 'node_modules');
-const reactNativeModulePath = path.join(nodeModulePath, 'react-native');
+const rootPath = path.resolve(".");
+const nodeModulePath = path.join(rootPath, "node_modules");
+const reactNativeModulePath = path.join(nodeModulePath, "react-native");
 const stats = fs.lstatSync(reactNativeModulePath);
 if (stats.isSymbolicLink()) {
   isLinked = true;
-  moduleBasePath = path.join(reactNativeModulePath, 'node_modules') + path.sep;
+  moduleBasePath = path.join(reactNativeModulePath, "node_modules") + path.sep;
 }
 
-const babel = require(moduleBasePath + 'babel-core');
-const crypto = require('crypto');
-const externalHelpersPlugin = require(moduleBasePath + 'babel-plugin-external-helpers');
-const generate = require(moduleBasePath + 'babel-generator').default;
-const inlineRequiresPlugin = require(moduleBasePath + 'babel-preset-fbjs/plugins/inline-requires');
-const makeHMRConfig = require(moduleBasePath + 'babel-preset-react-native/configs/hmr');
-const resolvePlugins = require(moduleBasePath + 'babel-preset-react-native/lib/resolvePlugins');
+const babel = require(moduleBasePath + "babel-core");
+const crypto = require("crypto");
+const externalHelpersPlugin = require(moduleBasePath + "babel-plugin-external-helpers");
+const generate = require(moduleBasePath + "babel-generator").default;
+const inlineRequiresPlugin = require(moduleBasePath + "babel-preset-fbjs/plugins/inline-requires");
+const makeHMRConfig = require(moduleBasePath + "babel-preset-react-native/configs/hmr");
+const resolvePlugins = require(moduleBasePath + "babel-preset-react-native/lib/resolvePlugins");
 
-const { compactMapping } = require(moduleBasePath + 'metro-bundler/src/Bundler/source-map');
+const { compactMapping } = require(moduleBasePath + "metro-bundler/src/Bundler/source-map");
 
 const cacheKeyParts = [
   fs.readFileSync(__filename),
-  require(moduleBasePath + 'babel-plugin-external-helpers/package.json').version,
-  require(moduleBasePath + 'babel-preset-fbjs/package.json').version,
-  require(moduleBasePath + 'babel-preset-react-native/package.json').version,
+  require(moduleBasePath + "babel-plugin-external-helpers/package.json").version,
+  require(moduleBasePath + "babel-preset-fbjs/package.json").version,
+  require(moduleBasePath + "babel-preset-react-native/package.json").version
 ];
 
-const EXPO_REACT_NATIVE_PATH = isLinked
-  ? path.join(process.env.EXPO_UNIVERSE_DIR, 'react-native-lab', 'react-native')
-  : reactNativeModulePath;
+const EXPO_REACT_NATIVE_PATH = isLinked ? path.join(process.env.EXPO_UNIVERSE_DIR, "react-native-lab", "react-native") : reactNativeModulePath;
 if (!fs.existsSync(EXPO_REACT_NATIVE_PATH)) {
-  throw new Error(
-    `Expo copy of React Native could not be found. Are you sure it exists at: ${EXPO_REACT_NATIVE_PATH}?`
-  );
+  throw new Error(`Expo copy of React Native could not be found. Are you sure it exists at: ${EXPO_REACT_NATIVE_PATH}?`);
 }
-let EXPO_REACT_PATH = isLinked
-  ? path.join(EXPO_REACT_NATIVE_PATH, 'node_modules/react')
-  : path.join(nodeModulePath, 'react');
+let EXPO_REACT_PATH = isLinked ? path.join(EXPO_REACT_NATIVE_PATH, "node_modules/react") : path.join(nodeModulePath, "react");
 if (!fs.existsSync(EXPO_REACT_PATH)) {
-  throw new Error(
-    `React Native's "react" peer could not be found. Are you sure it exists at: ${EXPO_REACT_PATH}?`
-  );
+  throw new Error(`React Native's "react" peer could not be found. Are you sure it exists at: ${EXPO_REACT_PATH}?`);
 }
 
 /**
@@ -88,20 +71,20 @@ const getBabelRC = (function() {
     // this location.
     let projectBabelRCPath;
     if (projectRoot) {
-      projectBabelRCPath = path.resolve(projectRoot, '.babelrc');
+      projectBabelRCPath = path.resolve(projectRoot, ".babelrc");
     }
 
     // If a .babelrc file doesn't exist in the project,
     // use the Babel config provided with react-native.
     if (!projectBabelRCPath || !fs.existsSync(projectBabelRCPath)) {
       babelRC = {
-        presets: [require('babel-preset-react-native')],
-        plugins: [],
+        presets: [require("babel-preset-react-native")],
+        plugins: []
       };
 
       // Require the babel-preset's listed in the default babel config
       // $FlowFixMe: dynamic require can't be avoided
-      babelRC.presets = babelRC.presets.map(preset => require('babel-preset-' + preset));
+      babelRC.presets = babelRC.presets.map(preset => require("babel-preset-" + preset));
       babelRC.plugins = resolvePlugins(babelRC.plugins);
     } else {
       // if we find a .babelrc file we tell babel to use it
@@ -128,7 +111,7 @@ function buildBabelConfig(filename, options) {
     // babelRC lookup for dependencies
     babelrc: false,
     code: false,
-    filename,
+    filename
   };
 
   let config = Object.assign({}, babelRC, extraConfig);
@@ -137,7 +120,7 @@ function buildBabelConfig(filename, options) {
   const extraPlugins = [externalHelpersPlugin];
 
   var inlineRequires = options.inlineRequires;
-  var blacklist = typeof inlineRequires === 'object' ? inlineRequires.blacklist : null;
+  var blacklist = typeof inlineRequires === "object" ? inlineRequires.blacklist : null;
   if (inlineRequires && !(blacklist && filename in blacklist)) {
     extraPlugins.push(inlineRequiresPlugin);
   }
@@ -153,10 +136,10 @@ function buildBabelConfig(filename, options) {
 }
 
 function transform({ filename, options, src }) {
-  options = options || { platform: '', projectRoot: '', inlineRequires: false };
+  options = options || { platform: "", projectRoot: "", inlineRequires: false };
 
   const OLD_BABEL_ENV = process.env.BABEL_ENV;
-  process.env.BABEL_ENV = options.dev ? 'development' : 'production';
+  process.env.BABEL_ENV = options.dev ? "development" : "production";
 
   try {
     const babelConfig = buildBabelConfig(filename, options);
@@ -167,7 +150,7 @@ function transform({ filename, options, src }) {
         ast: null,
         code: src,
         filename,
-        map: null,
+        map: null
       };
     } else {
       const result = generate(
@@ -178,7 +161,7 @@ function transform({ filename, options, src }) {
           filename,
           retainLines: !!options.retainLines,
           sourceFileName: filename,
-          sourceMaps: true,
+          sourceMaps: true
         },
         src
       );
@@ -187,7 +170,7 @@ function transform({ filename, options, src }) {
         ast,
         code: result.code,
         filename,
-        map: options.generateSourceMaps ? result.map : result.rawMappings.map(compactMapping),
+        map: options.generateSourceMaps ? result.map : result.rawMappings.map(compactMapping)
       };
     }
   } catch (e) {
@@ -206,25 +189,25 @@ function buildModuleResolverPreset() {
   return {
     plugins: [
       [
-        require('babel-plugin-module-resolver').default,
+        require("babel-plugin-module-resolver").default,
         {
           alias: {
             react: EXPO_REACT_PATH,
-            'react-native': EXPO_REACT_NATIVE_PATH,
-          },
-        },
-      ],
-    ],
+            "react-native": EXPO_REACT_NATIVE_PATH
+          }
+        }
+      ]
+    ]
   };
 }
 
 function getCacheKey() {
-  var key = crypto.createHash('md5');
+  var key = crypto.createHash("md5");
   cacheKeyParts.forEach(part => key.update(part));
-  return key.digest('hex');
+  return key.digest("hex");
 }
 
 module.exports = {
   transform,
-  getCacheKey,
+  getCacheKey
 };

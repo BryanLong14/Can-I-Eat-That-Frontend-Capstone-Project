@@ -69,10 +69,7 @@ export default class BarcodeScan extends Component {
             <Button
               title="Scan Another Barcode"
               onPress={() => {
-                this.setState({
-                  results: "",
-                  UPC: ""
-                });
+                this.setState({ results: "", UPC: "" });
               }}
             />
           </View>
@@ -87,9 +84,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  },
-  button: {
-    marginBottom: 20
   },
   barcodeContainer: {
     flex: 1,

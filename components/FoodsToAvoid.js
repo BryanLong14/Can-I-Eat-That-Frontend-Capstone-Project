@@ -67,7 +67,7 @@ class FoodsToAvoid extends Component {
   };
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <ScrollView style={styles.container}>
           <Text style={styles.H2}>Foods to Avoid</Text>
           <TextInput
