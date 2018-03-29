@@ -56,7 +56,8 @@ class FoodsToAvoid extends Component {
     return string
       .split(" ")
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      .join(" ")
+      .replace(/\s+$/, "");
   };
 
   titleFoodsToAvoid = number => {
