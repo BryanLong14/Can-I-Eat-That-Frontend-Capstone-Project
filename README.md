@@ -61,4 +61,4 @@ MIT
 
 ## Local Installation Instructions
 
-Download Expo XDE and (scan the barcode here to Launch the App)[https://exp.host/@bryanlong14/frontend-xde]
+Download Expo XDE and [scan the barcode here to Launch the App]9https://exp.host/@bryanlong14/frontend-xde)
