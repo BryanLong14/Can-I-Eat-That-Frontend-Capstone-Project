@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   innercontainer: {
-    // marginTop: 50,
+    marginTop: 50,
     flex: 1
   },
   barcodeContainer: {
