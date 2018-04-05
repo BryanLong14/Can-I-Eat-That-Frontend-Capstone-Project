@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "frontend-xde",
+    "name": "Can I Eat That?",
     "description":
       "Product Barcode Scanner allows users to quickly create a custom list of food items and then easily avoid purchasing those items when shopping.",
-    "slug": "frontend-xde",
+    "slug": "Can I Eat That?",
     "privacy": "public",
     "sdkVersion": "25.0.0",
     "platforms": ["ios", "android"],
